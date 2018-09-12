@@ -5,7 +5,6 @@ const goblin = new Creature({
 const hobGoblin = new Creature({
     name: "Hob Goblin",
     health: 200,
-    chanceToCrit: .15,
     chanceToMiss: .2,
     baseDamage: 40,
 })
@@ -40,16 +39,16 @@ function Creature(options) {
     this.fight = function(creature) {
         let message;
         if (Math.random() < this.chanceToMiss) {
-            message = this.name + ' missed ' + creature.name + '.'
+            message = this.name + ' missed ' + creature.name + '. <br>'
         } else {
             const damage = Math.random() < this.chanceToCrit
             ? this.baseDamage * 2
             : this.baseDamage
             creature.health -= damage
-            message = creature.name + ' has been hit! They are now at ' + creature.health + ' health.'
+            message = creature.name + ' has been hit! They are now at ' + creature.health + ' health. <br>'
         }
-        console.log(message)
-        return message
+        document.write(message)
+        return message;
     }
 }
 
@@ -62,14 +61,17 @@ function battle(hero, ...monsters) {
             hero.fight(monster)
             monster.fight(hero)
         }
-        hero.health = Math.random() > .8
-        ? hero.maxHealth
-        :hero.health + 50
-        console.log( hero.name +  ' is at ' +  hero.health + ' health and ' + monster.name + ' is at ' + monster.health + ' health.')
-        console.log(hero.health > 0 
-            ? hero.name + ' came out victorious.'
-            : monster.name + ' came out victorious.')
+        hero.health = Math.random() > .25
+        ? hero.health
+        : hero.health + 1000
+
+        document.write(hero.name + " has cast heal and has healed 100 points of damage. <br>")
+        document.write( hero.name +  ' is at ' +  hero.health + ' health and ' + monster.name + ' is at ' + monster.health + ' health. <br>')
+        document.write(hero.health > 0 
+            ? hero.name + ' came out victorious. <br><br>'
+            : monster.name + ' came out victorious. <br><br>')
     })
 }
+
 
 battle(StealthMcCloud, goblin, hobGoblin, goblinLeader)

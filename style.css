@@ -1,0 +1,31 @@
+.goblin {
+    background-image: url("Photos/Goblin.gif");
+    height: 100px;
+    width: 100px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.hobGoblin {
+    background-image: url("Photos/HobGoblin.gif");
+    height: 100px;
+    width: 100px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.goblinLeader {
+    background-image: url("Photos/GoblinLeader.gif");
+    height: 100px;
+    width: 100px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.StealthMcCloud {
+    background-image: url("Photos/StealthMcCloud.gif");
+    height: 100px;
+    width: 100px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
