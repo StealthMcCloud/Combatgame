@@ -1,6 +1,6 @@
 const StealthMcCloud = new Creature({
     name: "Stealth McCloud",
-    health: 500,
+    health: 1000,
     chaneToCrit: .2,
     chanceToMiss: .2,
     baseDamage: 25,

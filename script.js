@@ -9,6 +9,7 @@ function Creature(options) {
     this.chanceToCrit = options.chanceToCrit || .1;
     this.chanceToMiss = options.chanceToMiss || .25;
     this.baseDamage = options.baseDamage || 20;
+    this.imageAdded = false;
     this.fight = function (creature) {
         let message;
         if (Math.random() < this.chanceToMiss) {
@@ -18,7 +19,7 @@ function Creature(options) {
                 ? this.baseDamage * 2
                 : this.baseDamage
             creature.health -= damage
-            message = creature.name + ' has been hit! They are now at ' + creature.health + ' health. '
+            message = creature.name + ' has been hit!'
         }
         let newDiv = document.createElement("div");
         let battleMessage = document.createTextNode(message);
@@ -26,29 +27,21 @@ function Creature(options) {
         document.body.appendChild(newDiv)
     }
 }
-Creature.prototype.attack = document.getElementById("Fight").addEventListener("click", function () {battle(StealthMcCloud, goblin)});
+let fight = document.getElementById("Fight").addEventListener("click", function () { battle(StealthMcCloud, goblin) });
+// let endBattle = document.getElementById("Fight").removeEventListener("click", function() {battle() });
 
+//have it set to create a special profiles div
 function imageAdder(creature) {
     const image = document.createElement('img');
-    if (creature.name === "Goblin") {
-        image.classList.add("goblin");
-        document.body.appendChild(image);
-
+    const creatureStyles = {
+        "Goblin": () => image.classList.add("goblin"),
+        "Hob Goblin": () => image.classList.add("hobGoblin"),
+        "Greknack Clinker": () => image.classList.add("goblinLeader"),
+        "Stealth McCloud": () => image.classList.add("StealthMcCloud"),
     }
-    if (creature.name === "Hob Goblin") {
-        image.classList.add("hobGoblin");
-        image.style.transform = "scaleX(-1)"
-        document.body.appendChild(image);
-    }
-    if (creature.name === "Greknack Clinker") {
-        image.classList.add("goblinLeader");
-        document.body.appendChild(image);
-    }
-    if (creature.name === "Stealth McCloud") {
-        image.classList.add("StealthMcCloud");
-        document.body.appendChild(image);
-    }
-    return image;
+    creature.imageAdded = true;
+    creatureStyles[creature.name]()
+    document.body.appendChild(image);
 }
 
 Creature.prototype.ability = "Power Attack";
@@ -56,33 +49,41 @@ Creature.prototype.ability = "Power Attack";
 Creature.prototype.item = "Potion";
 
 function battle(hero, ...monsters) {
-    console.log(monsters);
-    imageAdder(hero);
-    // imageAdder()
+        if (hero.imageAdded === false) imageAdder(hero);
     if (monsters.length === 0) {
         monsters = [new Creature({ name: "Hydra" })]
     }
     monsters.forEach(monster => {
-        imageAdder(monster);
-        while (hero.health > 0 && monster.health > 0) {
+        if (monster.imageAdded === false) imageAdder(monster);
+        if (hero.health <= 0 || monster.health <= 0) {
+            let newDiv = document.createElement("div");
+            let victory = document.createTextNode(hero.health > 0
+                ? hero.name + ' came out victorious. '
+                : monster.name + ' came out victorious. ')
+            newDiv.appendChild(victory);
+            document.body.appendChild(newDiv);
+        }
+
+        else if (hero.health > 0 && monster.health > 0) {
             hero.fight(monster)
             monster.fight(hero)
+            let newDiv = document.createElement("div");
+            let battleMessage2 = document.createTextNode(hero.name + ' is at ' + hero.health + ' health and ' + monster.name + ' is at ' + monster.health + ' health. ');
+            newDiv.appendChild(battleMessage2);
+            document.body.appendChild(newDiv);
         }
         // hero.health = Math.random() > .25
         // ? hero.health
         // : hero.health + 500
 
-        let newDiv = document.createElement("div");
-        let battleMessage2 = document.createTextNode(hero.name + ' is at ' + hero.health + ' health and ' + monster.name + ' is at ' + monster.health + ' health. ');
-        let victory = document.createTextNode(hero.health > 0
-            ? hero.name + ' came out victorious. '
-            : monster.name + ' came out victorious. ')
-        newDiv.appendChild(battleMessage2,);
-        newDiv.appendChild(victory);
-        document.body.appendChild(newDiv);
     })
 }
 
 function ResetBattle() {
     location.reload();
+}
+
+//create function to check the profiles to see if they exist in the given div 
+function profilesAreLoaded() {
+    return false;
 }
