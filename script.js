@@ -48,6 +48,8 @@ Creature.prototype.ability = "Power Attack";
 
 Creature.prototype.item = "Potion";
 
+Creature.prototype.magic = "Heal";
+
 function battle(hero, ...monsters) {
         if (hero.imageAdded === false) imageAdder(hero);
     if (monsters.length === 0) {

@@ -16,3 +16,10 @@ const goblinLeader = new Creature({
     chanceToMiss: .2,
     baseDamage: 25,
 })
+
+// function goblinKing(options) {
+//     Creature.call(this, options)
+// }
+
+// goblinKing.prototype = new Creature()
+// goblinKing.prototype.constructor = goblinKing
