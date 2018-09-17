@@ -27,7 +27,7 @@ function Creature(options) {
         document.body.appendChild(newDiv)
     }
 }
-let fight = document.getElementById("Fight").addEventListener("click", function () { battle(StealthMcCloud, goblin) });
+let fight = document.getElementById("Fight").addEventListener("click", function () { battle(StealthMcCloud, new goblinKing({name: "Jareth", health: 1000, chanceToCrit: .25, chanceToMiss: .1, baseDamage: 30}))});
 // let endBattle = document.getElementById("Fight").removeEventListener("click", function() {battle() });
 
 //have it set to create a special profiles div
@@ -38,6 +38,7 @@ function imageAdder(creature) {
         "Hob Goblin": () => image.classList.add("hobGoblin"),
         "Greknack Clinker": () => image.classList.add("goblinLeader"),
         "Stealth McCloud": () => image.classList.add("StealthMcCloud"),
+        "Jareth": () => image.classList.add("goblinKing"),
     }
     creature.imageAdded = true;
     creatureStyles[creature.name]()

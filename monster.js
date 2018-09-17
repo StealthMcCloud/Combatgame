@@ -17,9 +17,8 @@ const goblinLeader = new Creature({
     baseDamage: 25,
 })
 
-// function goblinKing(options) {
-//     Creature.call(this, options)
-// }
-
-// goblinKing.prototype = new Creature()
-// goblinKing.prototype.constructor = goblinKing
+function goblinKing(options) {
+    Creature.call(this, options);
+}
+goblinKing.prototype = Object.create(Creature.prototype);
+goblinKing.prototype.constructor = goblinKing;
